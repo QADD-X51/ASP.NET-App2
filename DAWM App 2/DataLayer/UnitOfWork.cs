@@ -1,4 +1,5 @@
 ﻿using DataLayer.Repositories;
+using System.Reflection.Metadata;
 
 namespace DataLayer
 {
@@ -6,6 +7,7 @@ namespace DataLayer
     {
         public StudentsRepository Students { get; }
         public ClassRepository Classes { get; }
+        public UserRepository Users { get; }
 
         private readonly AppDbContext _dbContext;
 
@@ -13,11 +15,13 @@ namespace DataLayer
         (
             AppDbContext dbContext,
             StudentsRepository studentsRepository,
-            ClassRepository classes
+            ClassRepository classes,
+            UserRepository userRepository
         )
         {
             _dbContext = dbContext;
             Students = studentsRepository;
+            Users = userRepository; 
             Classes = classes;
         }
 
