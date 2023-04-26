@@ -33,7 +33,7 @@ namespace Core.Services
                 RoleId = existingRole.Id
             };
 
-            if (unitOfWork.Users.Any(q => q.Username == newUser.Username))
+            if (unitOfWork.Users.GetUserByCredentials(newUser.Username, newUser.Password) == null)
                 return null;
 
             unitOfWork.Users.Insert(newUser);
@@ -42,17 +42,11 @@ namespace Core.Services
             return payload;
         }
 
-        public bool LoginUser(UserLoginDto payload)
+        public User LoginUser(UserLoginDto payload)
         {
-            if (payload == null) return false;
+            if (payload == null) return null;
 
-            var targetUser = new User
-            {
-                Username = payload.Username,
-                Password = payload.Password
-            };
-
-            var exists = unitOfWork.Users.Any(q => q.Username == targetUser.Username && q.Password == targetUser.Password);
+            var exists = unitOfWork.Users.GetUserByCredentials(payload.Username,payload.Password);
 
             return exists;
         }

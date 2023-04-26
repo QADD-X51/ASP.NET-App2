@@ -32,12 +32,12 @@ namespace Project.Controllers
         {
             var result = userService.LoginUser(payload);
 
-            if (result == false)
+            if (result == null)
             {
                 return BadRequest("User does not exist");
             }
 
-            return Ok("You logged in!");
+            return Ok(result);
         }
     }
 }

@@ -12,5 +12,13 @@ namespace DataLayer.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public User GetUserByCredentials(string username, string password)
+        {
+            var rezult = dbContext.Users
+                .FirstOrDefault(e => e.Username == username && e.Password == password , null);
+
+            return rezult;
+        }
     }
 }
